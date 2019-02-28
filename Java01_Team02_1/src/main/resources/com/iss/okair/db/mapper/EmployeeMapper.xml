@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.iss.okair.db.mapper.EmployeeMapper">
+	<resultMap type="com.iss.okair.db.entity.Employee" id="BaseResultMap">
+		<id column="id" property="id" jdbcType="INTEGER"/>
+		<result column="empNo" property="empNo" jdbcType="VARCHAR"/>
+		<result column="namecn" property="namecn" jdbcType="VARCHAR"/>
+		<result column="reportTo" property="reportTo" jdbcType="VARCHAR"/>
+		<result column="reportToName" property="reportToName" jdbcType="VARCHAR"/>
+		<result column="dept" property="dept" jdbcType="VARCHAR"/>
+	</resultMap>
+
+
+<sql id="Base_Column_List">
+id,empNo,namecn,reportTo,dept
+</sql>
+
+<select id="selectByExample" parameterType="Integer" resultMap="BaseResultMap">
+	select
+	<include refid="Base_Column_List"></include>
+	,(select concat(empNo,' ',namecn)from employee reptemp where emp.reportto = reptemp.id) as reportToName
+	from employee emp
+	<where>
+		<if test="namecn != null and namecn != ''">
+		<bind name="namecn" value="'%'+namecn+'%'"/>
+		and namecn like '${namecn}'
+		</if>
+		<if test="dept != null and dept != '-1'">
+		and dept = #{dept,jdbcType=VARCHAR}
+		</if>
+	</where>
+</select>
+
+<select id="selectAll" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    , (select concat(empNo,' ', namecn) from employee reptemp where emp.reportto = reptemp.id) as reportToName
+    from employee emp
+	order by dept
+</select>
+
+</mapper>

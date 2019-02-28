@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.iss.okair.db.mapper.SysUserRoleMapper">
+
+<resultMap type="com.iss.okair.db.entity.SysUserRole" id="BaseResultMap">
+<result column="role" property="role" jdbcType="VARCHAR"/>
+</resultMap>
+
+<select id="selectAll" resultMap="BaseResultMap">
+select * 
+from sysuserrole
+</select>
+
+</mapper>

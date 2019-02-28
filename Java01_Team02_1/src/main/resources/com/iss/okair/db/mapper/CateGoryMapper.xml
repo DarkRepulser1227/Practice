@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.iss.okair.db.mapper.CateGoryMapper">
+	<resultMap type="com.iss.okair.db.entity.CateGory" id="BaseResultMap">
+		<id column="id" property="id" jdbcType="INTEGER"></id>
+		<result column="code" property="code" jdbcType="VARCHAR" />
+		<result column="parentId" property="parentId" jdbcType="INTEGER" />
+		<result column="nameCn" property="nameCn" jdbcType="VARCHAR" />
+		<result column="comment" property="comment" jdbcType="VARCHAR" />
+
+	</resultMap>
+	<sql id="Base_column_list">
+		id,code,parentId,nameCn,comment
+	</sql>
+	<select id="selectByExample" parameterType="com.iss.okair.db.entity.CateGory" resultMap="BaseResultMap">
+		select
+		<include refid="Base_column_list"></include>
+		from category
+		<where>
+			<if test="nameCn != null and nameCn != '' ">
+				<bind name="nameCn" value="'%'+nameCn+'%'" />
+				and nameCn like '${nameCn}'
+			</if>
+			<if test="parentId != null and parentId != '-1'">
+				and parentId = #{parentId,jdbcType=INTEGER}
+			</if>
+		</where>
+	</select>
+	<select id="list" parameterType="java.lang.Integer" resultMap="BaseResultMap">
+		select
+		<include refid="Base_column_list"></include>
+		from category
+		<where>
+			<if test="_parameter != null">
+				parentId=#{parentId,jdbcType=INTEGER}
+			</if>
+		</where>
+	</select>
+	<select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultType="com.iss.okair.db.entity.CateGory">
+		select
+		<include refid="Base_column_list"></include>
+		from category
+		where id=#{id,jdbcType=INTEGER}
+	</select>
+	<select id="selectParentByPrimaryId"  parameterType="Integer" resultMap="BaseResultMap">
+	select
+	<include refid="Base_column_list"></include>
+	,(select  nameCn from category parent where parent.id=category.parentId) as parentName
+	from category
+	where id=#{id,jdbcType=INTEGER}
+	</select>
+</mapper>

@@ -1,0 +1,106 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.iss.okair.db.mapper.AssetstransMapper">
+<resultMap type="com.iss.okair.db.entity.Assetstrans" id="BaseResultMap">
+<id column="id" property="id" jdbcType="VARCHAR" />
+<result column="assetsId" property="assetsid" jdbcType="VARCHAR"/>
+<result column="batchNo" property="batchno" jdbcType="VARCHAR"/>
+<result column="transType" property="transtype" jdbcType="VARCHAR"/>
+<result column="count" property="count" jdbcType="DECIMAL"/>
+<result column="price" property="price" jdbcType="DECIMAL"/>
+<result column="handlerEmp" property="handleremp" jdbcType="VARCHAR"/>
+<result column="instockTime" property="instocktime" jdbcType="TIMESTAMP"/>
+<result column="targetEmp" property="targetemp" jdbcType="VARCHAR"/>
+<result column="comment" property="comment" jdbcType="VARCHAR"/>
+<result column="createTime" property="createtime" jdbcType="TIMESTAMP"/>
+<result column="createUser" property="createuser" jdbcType="VARCHAR"/>
+</resultMap>
+
+<sql id="Base_Column_List">
+	id,assetsId,batchNo,transType,count,price,handlerEmp,instockTime,targetEmp,comment,createTime,createUser
+</sql>
+	<select id="selectByPrimaryKey" parameterType="java.lang.String" resultMap="BaseResultMap">
+	select <include refid="Base_Column_List"></include>
+	from assetstrans
+	where id=#{id,jdbcType=VARCHAR}
+	</select>
+	<insert id="insertSelective" parameterType="com.iss.okair.db.entity.Assetstrans"  >
+	insert into assetstrans
+	<trim prefix="(" suffix=")" suffixOverrides=",">
+	<if test="id != null">
+	id,
+	</if>
+	<if test="assetsid != null">
+	assetsid,
+	</if>
+	<if test="batchno != null">
+	batchno,
+	</if>
+	<if test="transtype != null">
+	transtype,
+	</if>
+	<if test="count != null">
+	count,
+	</if>
+	<if test="price != null">
+	price,
+	</if>
+	<if test="handleremp != null">
+	handleremp,
+	</if>
+	<if test="instocktime != null">
+	instocktime,
+	</if>
+	<if test="targetemp != null">
+	targetemp,
+	</if>
+	<if test="comment != null">
+	comment,
+	</if>
+	<if test="createtime != null">
+	createTime,
+	</if>
+	<if test="createuser != null">
+	createUser,
+	</if>
+	</trim>
+	<trim prefix="values(" suffix=")" suffixOverrides=",">
+	<if test="id != null">
+	#{id,jdbcType=VARCHAR},
+	</if>
+	<if test="assetsid != null">
+	#{assetsid,jdbcType=VARCHAR},
+	</if>
+	<if test="batchno != null">
+	#{batchno,jdbcType=VARCHAR},
+	</if>
+	<if test="transtype != null">
+	#{transtype,jdbcType=VARCHAR},
+	</if>
+	<if test="count != null">
+	#{count,jdbcType=DECIMAL},
+	</if>
+	<if test="price != null">
+	#{price,jdbcType=DECIMAL},
+	</if>
+	<if test="handleremp != null">
+	#{handleremp,jdbcType=VARCHAR},
+	</if>
+	<if test="instocktime != null">
+	#{instocktime,jdbcType=TIMESTAMP},
+	</if>
+	<if test="targetemp != null">
+	#{targetemp,jdbcType=VARCHAR},
+	</if>
+	<if test="comment != null">
+	#{comment,jdbcType=VARCHAR},
+	</if>
+	<if test="createtime != null">
+	#{createtime,jdbcType=TIMESTAMP},
+	</if>
+	<if test="createuser != null">
+	#{createuser,jdbcType=VARCHAR},
+	</if>
+	</trim>
+	</insert>
+</mapper>

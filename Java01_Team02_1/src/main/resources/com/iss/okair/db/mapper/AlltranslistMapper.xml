@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.iss.okair.db.mapper.AlltranslistMapper">
+<resultMap type="com.iss.okair.db.entity.Alltranslist" id="BaseResultMap">
+<result column="id" property="id" jdbcType="VARCHAR"/>
+<result column="assetsid" property="assetsid" jdbcType="VARCHAR"/>
+<result column="assetstype" property="assetstype" jdbcType="VARCHAR"/>
+<result column="batchno" property="batchno" jdbcType="VARCHAR"/>
+<result column="transtype" property="transtype" jdbcType="VARCHAR"/>
+<result column="count" property="count" jdbcType="DECIMAL"/>
+<result column="price" property="price" jdbcType="DECIMAL"/>
+<result column="handleremp" property="handleremp" jdbcType="VARCHAR"/>
+<result column="handlerEmpName" property="handlerempname" jdbcType="VARCHAR"/>
+<result column="instocktime" property="instocktime" jdbcType="TIMESTAMP"/>
+<result column="targetemp" property="targetemp" jdbcType="VARCHAR"/>
+<result column="targetEmpName" property="targetempname" jdbcType="VARCHAR"/>
+<result column="comment" property="comment" jdbcType="VARCHAR"/>
+<result column="createtime" property="createtime" jdbcType="TIMESTAMP"/>
+<result column="createuser" property="createuser" jdbcType="VARCHAR"/>
+
+
+</resultMap>
+
+<select id="selectByAssetsId" parameterType="java.lang.String" resultMap="BaseResultMap">
+	select * from alltranslist where assetsid=#{assetsid,jdbcType=VARCHAR}
+	order by instocktime desc
+</select>
+
+</mapper>

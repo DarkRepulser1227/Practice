@@ -1,0 +1,198 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.iss.okair.db.mapper.AssetsNormalMapper">
+	<resultMap type="com.iss.okair.db.entity.AssetsNormal" id="BaseResultMap">
+		<id column="id" jdbcType="VARCHAR" property="id"/>
+		<result column="assetsCode" jdbcType="VARCHAR" property="assetscode"/>
+		<result column="assetsType" jdbcType="INTEGER" property="assetstype"/>
+		<result column="nameCn" jdbcType="VARCHAR" property="namecn"/>
+		<result column="normalBrand" jdbcType="VARCHAR" property="normalbrand"/>
+		<result column="normalModel" jdbcType="VARCHAR" property="normalmodel"/>
+		<result column="packageType" jdbcType="INTEGER" property="packagetype"/>
+		<result column="supplier" jdbcType="VARCHAR" property="supplier"/>
+		<result column="supplierTel" jdbcType="VARCHAR" property="suppliertel"/>
+		<result column="consumptive" jdbcType="INTEGER" property="consumptive"/>
+		<result column="supplierTel" jdbcType="VARCHAR" property="suppliertel"/>
+		<result column="createDate" jdbcType="VARCHAR" property="createdate"/>
+		<result column="createUser" jdbcType="VARCHAR" property="createuser"/>
+		<result column="comment" jdbcType="VARCHAR" property="comment"/>
+	</resultMap>
+	<sql id="Base_Column_List">
+		id,assetsCode,assetsType,nameCn,normalBrand,normalModel,packageType,supplier,supplierTel,consumptive,createDate,createUser,comment
+	</sql>
+	
+	<select id="selectByExample" parameterType="com.iss.okair.db.entity.AssetsNormal" resultMap="BaseResultMap">
+		select 
+		<include refid="Base_Column_List" />
+		from assets_normal
+		<where>
+			<choose>
+				<when test="(assetsType2 == null or assetsType2 == '-1') and assetsType1 != '-1' and assetsType != null">
+					and assetsType in (select id from category where parentId = #{assetsType1,jdbcType=VARCHAR})
+				</when>
+				<when test="assetsType2 != null and assetsType2 !='-1'">
+					and assetsType = #{assetsType2,jdbcType=VARCHAR}
+				</when>
+			</choose>
+			<if test="assetsNameCn != null and assetsNameCn !=''">
+				<bind name="nameCn" value="'%'+assetsNameCn+'%'"/>
+				and nameCn like '${nameCn}'
+			</if>
+			<if test="assetsCode != null and assetsCode !=''">
+				<bind name="assetsCode" value="'%'+assetsCode+'%'"/>
+				and assetsCode like '${assetsCode}'
+			</if>
+			<if test="supplier != null and supplier !=''">
+				<bind name="supplier" value="'%'+supplier+'%'"/>
+				and (supplier like '${supplier}' or supplierTel like '${supplier}')
+			</if>
+			<if test="packageType != null and packageType !='-1'">
+				and packageType = #{packageType,jdbcType=VARCHAR}
+			</if>
+			<if test="consumptive != null">
+				and consumptive = #{consumptive,jdbcType=BOOLEAN}
+			</if>
+		</where>
+	</select>
+	
+	<select id="selectByPrimaryKey" parameterType="java.lang.String" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from assets_normal
+    where id = #{id,jdbcType=VARCHAR}
+  	</select>
+	
+	<select id="countAll" resultType="java.lang.Integer">
+    select count(1) from assets_normal
+  	</select>
+	
+	<update id="updateByPrimaryKeySelective" parameterType="com.iss.okair.db.entity.AssetsNormal">
+    update assets_normal
+    <set>
+      <if test="assetscode != null">
+        assetsCode = #{assetscode,jdbcType=VARCHAR},
+      </if>
+      <if test="assetstype != null">
+        assetsType = #{assetstype,jdbcType=INTEGER},
+      </if>
+      <if test="namecn != null">
+        nameCn = #{namecn,jdbcType=VARCHAR},
+      </if>
+      <if test="normalbrand != null">
+        normalBrand = #{normalbrand,jdbcType=VARCHAR},
+      </if>
+      <if test="normalmodel != null">
+        normalModel = #{normalmodel,jdbcType=VARCHAR},
+      </if>
+      <if test="packagetype != null">
+        packageType = #{packagetype,jdbcType=INTEGER},
+      </if>
+      <if test="supplier != null">
+        supplier = #{supplier,jdbcType=VARCHAR},
+      </if>
+      <if test="suppliertel != null">
+        supplierTel = #{suppliertel,jdbcType=VARCHAR},
+      </if>
+      <if test="consumptive != null">
+        consumptive = #{consumptive,jdbcType=INTEGER},
+      </if>
+      <if test="createdate != null">
+        createDate = #{createdate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="createuser != null">
+        createUser = #{createuser,jdbcType=VARCHAR},
+      </if>
+      <if test="comment != null">
+        comment = #{comment,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where id = #{id,jdbcType=VARCHAR}
+  	</update>
+	
+	<insert id="insertSelective" parameterType="com.iss.okair.db.entity.AssetsNormal">
+    insert into assets_normal
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        id,
+      </if>
+      <if test="assetscode != null">
+        assetsCode,
+      </if>
+      <if test="assetstype != null">
+        assetsType,
+      </if>
+      <if test="namecn != null">
+        nameCn,
+      </if>
+      <if test="normalbrand != null">
+        normalBrand,
+      </if>
+      <if test="normalmodel != null">
+        normalModel,
+      </if>
+      <if test="packagetype != null">
+        packageType,
+      </if>
+      <if test="supplier != null">
+        supplier,
+      </if>
+      <if test="suppliertel != null">
+        supplierTel,
+      </if>
+      <if test="consumptive != null">
+        consumptive,
+      </if>
+      <if test="createdate != null">
+        createDate,
+      </if>
+      <if test="createuser != null">
+        createUser,
+      </if>
+      <if test="comment != null">
+        comment,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        #{id,jdbcType=VARCHAR},
+      </if>
+      <if test="assetscode != null">
+        #{assetscode,jdbcType=VARCHAR},
+      </if>
+      <if test="assetstype != null">
+        #{assetstype,jdbcType=INTEGER},
+      </if>
+      <if test="namecn != null">
+        #{namecn,jdbcType=VARCHAR},
+      </if>
+      <if test="normalbrand != null">
+        #{normalbrand,jdbcType=VARCHAR},
+      </if>
+      <if test="normalmodel != null">
+        #{normalmodel,jdbcType=VARCHAR},
+      </if>
+      <if test="packagetype != null">
+        #{packagetype,jdbcType=INTEGER},
+      </if>
+      <if test="supplier != null">
+        #{supplier,jdbcType=VARCHAR},
+      </if>
+      <if test="suppliertel != null">
+        #{suppliertel,jdbcType=VARCHAR},
+      </if>
+      <if test="consumptive != null">
+        #{consumptive,jdbcType=INTEGER},
+      </if>
+      <if test="createdate != null">
+        #{createdate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="createuser != null">
+        #{createuser,jdbcType=VARCHAR},
+      </if>
+      <if test="comment != null">
+        #{comment,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  	</insert>
+	
+</mapper>

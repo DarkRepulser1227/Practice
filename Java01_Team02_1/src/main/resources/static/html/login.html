@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="en" xmlns="http://www.w3.org/1999/html">
+<head>
+    <meta charset="UTF-8">
+    <title>用户登陆</title>
+    <base href="/">
+</head>
+<body  style="background-image: url(img/微信图片_20190118194312.jpg)">
+<div class="container" style="background-image: url(img/.jpg)">
+	<div class="jumbotron" align="center" style=font-size:30px >
+  <h1><small>奥凯航空后勤管理系统</small></h1>
+  <h2>欢迎登陆！</h2>
+ 	<p>&nbsp;</p>
+ 	<p>&nbsp;</p>
+  <button type="button" class="btn btn-default" data-toggle="tooltip" data-placement="center" title="未设置跳转...">了解更多</button>
+</div>
+
+	<div class="row">
+		<div id="loginAlert" role="alert" style="display: none;">登录失败，请重新登录</div>
+	</div>
+    <div class="row">
+        <div class="col-md-5" style="line-height: 100px;margin-left:400px;" >
+        	<div class="form-horizontal">
+	            <div class="form-group col-md-10">
+	                <div class="input-group " >
+	                	<span class="input-group-addon glyphicon glyphicon-user"></span>
+	                	<input type="text" id="tbxUid" name="uid" class="form-control" placeholder="用户名" >
+	            	</div>
+	            </div>
+	           
+	            <div class="form-group col-md-10">
+	                <div class="input-group">
+	                	<span class="input-group-addon glyphicon glyphicon-lock"></span>
+	               		<input type="password" id="tbxPwd" name="pwd" class="form-control" placeholder="密码"/>
+	                </div>
+	            </div>
+	            <div class="form-group col-md-5 text-right" style=margin-left:50px >
+	            	<button id="btnLogin" class="btn btn-success" style="width: 100px">
+		            	<span class="glyphicon glyphicon-ok"></span>
+		            	登陆 Login
+	            	</button>
+	            </div>
+	            
+            </div>
+            
+        </div>
+        
+    </div>
+</div>
+</body>
+<script type="text/javascript" src="js/bower_components/requirejs/require.js" data-main="js/logic/login"></script>
+</html>
